@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>My Angular App!</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+  </head>
+  <body ng-app="thatFakeReddit" ng-controller="MainCtrl">
+    <div class="row">
+        <div class = 'col-md-6 col-md-offset-3'>
+            <div class="page-header">
+                <h1>Fekit News</h1>
+            </div>
+            {{mainVar}}            
+            <form ng-submit="addPost()"
+            style="margin-top:30px;">
+                <h3>Add a new post</h3>              
+                <div class="form-group">
+                    <input type="text"
+                    class="form-control"
+                    placeholder="Title"
+                    ng-model="dasPost"></input>
+                </div>
+            
+            <div class="form-group">
+                <input type="text"
+                class="form-control"
+                placeholder="Link"
+                ng-model="dasLink"></input>
+            </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+<!--
+            <form ng-submit='addPost()'>
+                <input type="text" ng-model="dasPost" placeholder="Title">
+                <br>
+                <input type="text" ng-model="dasLink" placeholder="Links">
+                <br>
+                <button type="submit">Post it!</button>
+            </form>
+-->
+
+            <!--look at filters if you want more selection      https://docs.angularjs.org/api/ng/filter/orderBy-->
+            <div ng-repeat="post in posts | orderBy: '-upvotes'">
+                <span class="glyphicon glyphicon-thumbs-up"
+                ng-click="incrUpvote(post)">
+                </span>                        
+                <a ng-show="post.link" href="{{post.link}}"><!-- what does a do? it defines a hyperlink, with important attribute href-->
+                {{post.title}}
+                <span style="font-size:20px; margin-left:10px;">
+                </span>
+                </a>
+                <span ng-hide="post.link">
+                    {{post.title}}
+                </span>
+                - upvotes: {{post.upvotes}} 
+            </div>
+        </div>
+    </div>  
+  </body>
+</html>
