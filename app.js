@@ -1,17 +1,75 @@
-var app = angular.module('thatFakeReddit',[]);
+var app = angular.module('thatFakeReddit',['ui.router']);
+
+ 
+app.config(
+
+    function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.otherwise('home');
+        
+        $stateProvider
+        .state('home',{
+            url: '/home',
+            templateUrl: '/home.html',
+            })
+        
+        .state('about',{
+            url: '/about',
+            views: {
+                '': {
+                    templateUrl : 'home.html',
+                    controller :    'MainCtrl'
+                },
+                
+                'columnOne@about':  {template: 'LOOK AT ME PHAM'},
+                
+                'columnTwo@about':  {
+                    templateUrl:    'posts.html',
+                    controller:     'PostsCtrl'
+                    }
+                }
+            });
+        
+        
+//        $stateProvider
+//            .state('home',{
+//            url: '/home',
+//            templateUrl: '/home.html',
+//            controller: 'MainCtrl'
+//            })
+//        
+//            .state('posts',{
+//                url: '/posts/{id}',
+//                templateUrl: '/posts.html',
+//                controller: 'PostCtrl'
+//            });
+    }
+);
+
+app.factory('posts', [
+    function(){
+        var myObj = {
+            posts : []
+    };
+    return myObj;
+}]);
+
 
 app.controller('MainCtrl',[
     '$scope',
-    function($scope){
+    'posts',
+    function($scope, posts){
         $scope.mainVar = 'Hello pham, welcome to TFR';
         
-        $scope.posts = [
-            {title: 'post 1', upvotes:15},
-            {title: 'post 2', upvotes:522},
-            {title: 'post 3', upvotes:124},
-            {title: 'post 4', upvotes:23},
-            {title: 'post 5', upvotes:22},
-        ];
+        $scope.posts = posts.posts;
+        $scope.posts.push({
+          title: $scope.dasPost,
+          link: $scope.dasLink,
+          upvotes: 0,
+          comments: [
+            {author: 'Joe', body: 'Cool post!', upvotes: 0},
+            {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
+          ]
+        });
         
         $scope.addPost = function(){
             if ( !$scope.dasPost || $scope.dasPost ===''){
@@ -32,4 +90,24 @@ app.controller('MainCtrl',[
         };
     }
 ]);
+
+app.controller('PostsCtrl', [
+    '$scope',
+    '$stateParams',
+    'posts',
+    function($scope, $stateParams, posts){
+        
+        $scope.post = posts.posts[$stateParams.id];
+        
+        $scope.addComment = function(){
+          if($scope.body === '') { return; }
+          $scope.post.comments.push({
+            body: $scope.body,
+            author: 'user',
+            upvotes: 0
+          });
+          $scope.body = '';
+        };    
+}]);
+
 

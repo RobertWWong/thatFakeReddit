@@ -1,0 +1,25 @@
+{
+  "name": "tfk",
+  "version": "1.0.0",
+  "description": "MEAN stack work",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archon263/thatFakeReddit.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "AngularJS",
+    "Node"
+  ],
+  "author": "Robert Wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archon263/thatFakeReddit/issues"
+  },
+  "homepage": "https://github.com/archon263/thatFakeReddit#readme"
+}
