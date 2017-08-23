@@ -1,113 +1,46 @@
-var app = angular.module('thatFakeReddit',['ui.router']);
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
- 
-app.config(
+var index = require('./routes/index');
+var users = require('./routes/users');
 
-    function($stateProvider, $urlRouterProvider){
-        $urlRouterProvider.otherwise('home');
-        
-        $stateProvider
-        .state('home',{
-            url: '/home',
-            templateUrl: '/home.html',
-            })
-        
-        .state('about',{
-            url: '/about',
-            views: {
-                '': {
-                    templateUrl : 'home.html',
-                    controller :    'MainCtrl'
-                },
-                
-                'columnOne@about':  {template: 'LOOK AT ME PHAM'},
-                
-                'columnTwo@about':  {
-                    templateUrl:    'posts.html',
-                    controller:     'PostsCtrl'
-                    }
-                }
-            });
-        
-        
-//        $stateProvider
-//            .state('home',{
-//            url: '/home',
-//            templateUrl: '/home.html',
-//            controller: 'MainCtrl'
-//            })
-//        
-//            .state('posts',{
-//                url: '/posts/{id}',
-//                templateUrl: '/posts.html',
-//                controller: 'PostCtrl'
-//            });
-    }
-);
+var app = express();
 
-app.factory('posts', [
-    function(){
-        var myObj = {
-            posts : []
-    };
-    return myObj;
-}]);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.controller('MainCtrl',[
-    '$scope',
-    'posts',
-    function($scope, posts){
-        $scope.mainVar = 'Hello pham, welcome to TFR';
-        
-        $scope.posts = posts.posts;
-        $scope.posts.push({
-          title: $scope.dasPost,
-          link: $scope.dasLink,
-          upvotes: 0,
-          comments: [
-            {author: 'Joe', body: 'Cool post!', upvotes: 0},
-            {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-          ]
-        });
-        
-        $scope.addPost = function(){
-            if ( !$scope.dasPost || $scope.dasPost ===''){
-                console.log("that' aint posting pham, also === means eq w/out coercision. 1 == '1' is T. 1 === '1' is F");
-                return;
-            }
-            $scope.posts.push( {title: $scope.dasPost,
-                                link: $scope.dasLink,
-                                upvotes: 0});
-            $scope.dasPost = '';
-            $scope.dasLink = '';
-            console.log("we adding some stuff " + $scope.dasPost);
-        };
-        
-        $scope.incrUpvote = function(post){
-            post.upvotes +=1;
-            console.log("yaaaaasssssssssss");
-        };
-    }
-]);
+app.use('/', index);
+app.use('/users', users);
 
-app.controller('PostsCtrl', [
-    '$scope',
-    '$stateParams',
-    'posts',
-    function($scope, $stateParams, posts){
-        
-        $scope.post = posts.posts[$stateParams.id];
-        
-        $scope.addComment = function(){
-          if($scope.body === '') { return; }
-          $scope.post.comments.push({
-            body: $scope.body,
-            author: 'user',
-            upvotes: 0
-          });
-          $scope.body = '';
-        };    
-}]);
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;

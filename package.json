@@ -1,5 +1,5 @@
 {
-  "name": "tfk",
+  "name": "tfr",
   "version": "1.0.0",
   "description": "MEAN stack work",
   "main": "app.js",
@@ -10,6 +10,21 @@
     "type": "git",
     "url": "git+https://github.com/archon263/thatFakeReddit.git"
   },
+   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+
   "keywords": [
     "MongoDB",
     "Express",
@@ -20,6 +35,10 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/archon263/thatFakeReddit/issues"
+  },
+
+   "engines": {
+    "node": "6.9.4"
   },
   "homepage": "https://github.com/archon263/thatFakeReddit#readme"
 }
