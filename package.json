@@ -2,29 +2,25 @@
   "name": "tfr",
   "version": "1.0.0",
   "description": "MEAN stack work",
-  "main": "app.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
+  "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/archon263/thatFakeReddit.git"
   },
-   "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
-  },
-  
   "dependencies": {
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
-    "express": "~4.15.2",
+    "ejs": "^2.5.7",
     "jade": "~1.11.0",
+    "express": "~4.15.2",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
   },
-
   "keywords": [
     "MongoDB",
     "Express",
@@ -36,8 +32,7 @@
   "bugs": {
     "url": "https://github.com/archon263/thatFakeReddit/issues"
   },
-
-   "engines": {
+  "engines": {
     "node": "6.9.4"
   },
   "homepage": "https://github.com/archon263/thatFakeReddit#readme"

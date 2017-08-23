@@ -1,49 +1,49 @@
 var app = angular.module('thatFakeReddit',['ui.router']);
 
  
-app.config(
-
-    function($stateProvider, $urlRouterProvider){
-        $urlRouterProvider.otherwise('home');
-        
-        $stateProvider
-        .state('home',{
-            url: '/home',
-            templateUrl: '/home.html',
-            })
-        
-        .state('about',{
-            url: '/about',
-            views: {
-                '': {
-                    templateUrl : 'home.html',
-                    controller :    'MainCtrl'
-                },
-                
-                'columnOne@about':  {template: 'LOOK AT ME PHAM'},
-                
-                'columnTwo@about':  {
-                    templateUrl:    'posts.html',
-                    controller:     'PostsCtrl'
-                    }
-                }
-            });
-        
-        
+//app.config(
+//
+//    function($stateProvider, $urlRouterProvider){
+//        $urlRouterProvider.otherwise('home');
+//        
 //        $stateProvider
-//            .state('home',{
+//        .state('home',{
 //            url: '/home',
-//            templateUrl: '/home.html',
-//            controller: 'MainCtrl'
+//            templateUrl: 'views/home.html',
 //            })
 //        
-//            .state('posts',{
-//                url: '/posts/{id}',
-//                templateUrl: '/posts.html',
-//                controller: 'PostCtrl'
+//        .state('about',{
+//            url: '/about',
+//            views: {
+//                '': {
+//                    templateUrl : 'views/home.html',
+//                    controller :    'MainCtrl'
+//                },
+//                
+//                'columnOne@about':  {template: 'LOOK AT ME PHAM'},
+//                
+//                'columnTwo@about':  {
+//                    templateUrl:    'views/posts.html',
+//                    controller:     'PostsCtrl'
+//                    }
+//                }
 //            });
-    }
-);
+//        
+//        
+////        $stateProvider
+////            .state('home',{
+////            url: '/home',
+////            templateUrl: '/home.html',
+////            controller: 'MainCtrl'
+////            })
+////        
+////            .state('posts',{
+////                url: '/posts/{id}',
+////                templateUrl: '/posts.html',
+////                controller: 'PostCtrl'
+////            });
+//    }
+//);
 
 app.factory('posts', [
     function(){
